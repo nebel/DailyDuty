@@ -21,6 +21,7 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
         System.NativeController = new NativeController(Service.PluginInterface);
 
         System.Teleporter = new Teleporter(Service.PluginInterface);
+        System.Cache = new Cache();
         
         System.CommandManager = new CommandManager(Service.PluginInterface, "dd", "dailyduty");
         System.LocalizationController = new LocalizationController();
@@ -65,6 +66,8 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
     private void OnFrameworkUpdate(IFramework framework) {
         if (!Service.ClientState.IsLoggedIn) return;
 
+        System.Cache.OnUpdate();
+
         // Check for reset, and reset modules that need it 
         System.ModuleController.ResetModules();
         
@@ -81,6 +84,8 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
         System.TodoListController.Enable();
         System.TimersController.Enable();
         
+        System.Cache.OnLogin();
+
         System.ModuleController.LoadModules();
     }
     
