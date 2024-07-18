@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
-using Lumina.Excel.GeneratedSheets;
 
 namespace DailyDuty.Classes;
 
 public static class Time {
     private static DateTime GetNextDateTimeForHour(int hours)
-        => DateTime.UtcNow.Hour < hours ? DateTime.UtcNow.Date.AddHours(hours) : DateTime.UtcNow.Date.AddDays(1).AddHours(hours);
+        => System.Cache.UtcNow.Hour < hours ? System.Cache.UtcNow.Date.AddHours(hours) : System.Cache.UtcNow.Date.AddDays(1).AddHours(hours);
 
     public static DateTime NextDailyReset()
         => GetNextDateTimeForHour(15);
@@ -21,13 +19,13 @@ public static class Time {
         => GetNextDateTimeForHour(20);
 
     public static DateTime NextLeveAllowanceReset() {
-        var now = DateTime.UtcNow;
+        var now = System.Cache.UtcNow;
 
         return now.Hour < 12 ? now.Date.AddHours(12) : now.Date.AddDays(1);
     }
 
     private static DateTime NextDayOfWeek(DayOfWeek weekday, int hour) {
-        var today = DateTime.UtcNow;
+        var today = System.Cache.UtcNow;
 
         if (today.Hour < hour && today.DayOfWeek == weekday) {
             return today.Date.AddHours(hour);
@@ -44,9 +42,7 @@ public static class Time {
     public class DatacenterException : Exception { }
     
     public static DateTime NextJumboCactpotReset() {
-        var region = LookupDatacenterRegion(Service.ClientState.LocalPlayer?.HomeWorld.GameData?.DataCenter.Row);
-
-        return region switch {
+        return System.Cache.DataCenterRegion switch {
             // Japan
             1 => NextDayOfWeek(DayOfWeek.Saturday, 12),
 
@@ -65,15 +61,6 @@ public static class Time {
             // Unknown Region
             _ => throw new DatacenterException(),
         };
-    }
-
-    private static byte LookupDatacenterRegion(uint? playerDatacenterId) {
-        if (playerDatacenterId == null) return 0;
-
-        return Service.DataManager.GetExcelSheet<WorldDCGroupType>()!
-            .Where(world => world.RowId == playerDatacenterId.Value)
-            .Select(dc => dc.Region)
-            .FirstOrDefault();
     }
 
     public static string FormatTimespan(this TimeSpan timeSpan, bool hideSeconds = false)

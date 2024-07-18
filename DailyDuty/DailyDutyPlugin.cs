@@ -19,6 +19,8 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
         System.SystemConfig = new SystemConfig();
         System.NativeController = new NativeController(Service.PluginInterface);
 
+        System.Cache = new Cache();
+
         System.TeleporterController = new TeleporterController();
         
         System.CommandManager = new CommandManager(Service.PluginInterface, "dd", "dailyduty");
@@ -69,6 +71,8 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
         if (Service.ClientState.IsPvP) return;
         if (!Service.ClientState.IsLoggedIn) return;
 
+        System.Cache.OnUpdate();
+
         // Check for reset, and reset modules that need it 
         System.ModuleController.ResetModules();
         
@@ -81,7 +85,9 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
     
     private void OnLogin() {
         System.SystemConfig = SystemConfig.Load();
-        
+
+        System.Cache.OnLogin();
+
         System.ModuleController.LoadModules();
         
         System.TodoListController.Load();
