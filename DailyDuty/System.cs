@@ -25,4 +25,5 @@ public static class System {
 	public static TimersController TimersController { get; set; }
 	public static TodoConfig TodoConfig { get; set; }
 	public static TimersConfig TimersConfig { get; set; }
+	public static Cache Cache { get; set; }
 }

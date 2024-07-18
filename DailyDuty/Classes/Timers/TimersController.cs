@@ -109,8 +109,8 @@ public unsafe class TimersController : NativeUiOverlayController {
 	
 	private bool ShouldShow() {
 		if (!System.TimersConfig.Enabled) return false;
-		if (System.TimersConfig.HideInDuties && Service.Condition.IsBoundByDuty()) return false;
-		if (System.TimersConfig.HideInQuestEvents && Service.Condition.IsInQuestEvent()) return false;
+		if (System.TimersConfig.HideInDuties && System.Cache.IsBoundByDuty) return false;
+		if (System.TimersConfig.HideInQuestEvents && System.Cache.IsInQuestEvent) return false;
 
 		return true;
 	}

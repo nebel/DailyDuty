@@ -57,8 +57,8 @@ public unsafe class TodoListController : NativeUiOverlayController {
 	public void Update() {
 		if (todoListNode is null) return;
 		
-		var passedDutyCheck = System.TodoConfig.HideInDuties && !Service.Condition.IsBoundByDuty() || !System.TodoConfig.HideInDuties;
-		var passedQuestCheck = System.TodoConfig.HideDuringQuests && !Service.Condition.IsInQuestEvent()  || !System.TodoConfig.HideDuringQuests;
+		var passedDutyCheck = System.TodoConfig.HideInDuties && !System.Cache.IsBoundByDuty || !System.TodoConfig.HideInDuties;
+		var passedQuestCheck = System.TodoConfig.HideDuringQuests && !System.Cache.IsInQuestEvent  || !System.TodoConfig.HideDuringQuests;
 
 		todoListNode.IsVisible = passedDutyCheck && passedQuestCheck && System.TodoConfig.Enabled;
 	}

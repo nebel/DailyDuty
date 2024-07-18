@@ -250,7 +250,7 @@ public abstract class Module<T, TU> : Module where T : ModuleData, new() where T
 
     private void SendStatusMessage() {
         if (GetModuleStatus() is not (ModuleStatus.Incomplete or ModuleStatus.Unknown)) return;
-        if (Service.Condition.IsBoundByDuty()) return;
+        if (System.Cache.IsBoundByDuty) return;
         if (statusMessageLockout.Elapsed < TimeSpan.FromMinutes(5) && statusMessageLockout.IsRunning) {
             Service.Log.Debug($"[{ModuleName}] Suppressing Status Message: {TimeSpan.FromMinutes(5) - statusMessageLockout.Elapsed}");
             return;
