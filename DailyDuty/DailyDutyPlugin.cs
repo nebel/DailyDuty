@@ -6,6 +6,7 @@ using DailyDuty.Models;
 using DailyDuty.Windows;
 using Dalamud.Plugin.Services;
 using KamiLib.Classes;
+using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using KamiLib.CommandManager;
 using KamiLib.Window;
 using KamiToolKit;
@@ -65,6 +66,11 @@ public sealed class DailyDutyPlugin : IDalamudPlugin {
     
     private void OnFrameworkUpdate(IFramework framework) {
         if (!Service.ClientState.IsLoggedIn) return;
+
+        unsafe {
+            if (Framework.Instance()->FrameCounter % 10 != 0)
+                return;
+        }
 
         System.Cache.OnUpdate();
 
