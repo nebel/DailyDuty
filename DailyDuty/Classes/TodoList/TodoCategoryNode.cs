@@ -22,7 +22,7 @@ public class TodoCategoryNode : NodeBase<AtkResNode> {
 	public TodoCategoryNode(ModuleType type) : base(NodeType.Res) {
 		moduleType = type;
 		NodeID = NodeID = 310_000 + (uint) moduleType;
-		Margin = new Spacing(5.0f);
+		Margin = new Spacing(0);
 
 		headerTextNode = new TextNode {
 			NodeID = NodeID + 500,
