@@ -42,6 +42,7 @@ public unsafe class TodoListController : NativeUiOverlayController {
 			
 		System.NativeController.AttachToAddon(todoListNode, (AtkUnitBase*)addonNamePlate, addonNamePlate->RootNode, NodePosition.AsFirstChild);
 		System.TodoListController.Refresh();
+		System.TodoListController.Refresh();
 	}
 	
 	protected override void DetachNodes(AddonNamePlate* addonNamePlate) {
