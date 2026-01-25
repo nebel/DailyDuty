@@ -74,7 +74,7 @@ public unsafe class TodoOverlay : FeatureBase {
                 ModuleTodoOverlayConfig.MarkDirty();
             }
             
-            overlayController?.CreateNode(() => new TodoPanelNode {
+            overlayController?.CreateNode(() => new SimpleTodoPanelNode {
                 Position = option.Position.Value,
                 Size = new Vector2(200.0f, 200.0f),
                 Config = option,
