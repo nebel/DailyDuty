@@ -67,7 +67,7 @@ public unsafe class SimpleTodoPanelNode : OverlayNode {
         }
 
         warningList.IsVisible = !Config.IsCollapsed;
-        warningList.ItemSpacing = Config.ItemSpacing;
+        warningList.ItemSpacing = -8f;
 
         var warningModules = Config.Modules.Select(moduleName => System.ModuleManager.GetModule(moduleName))
             .OfType<ModuleBase>()
