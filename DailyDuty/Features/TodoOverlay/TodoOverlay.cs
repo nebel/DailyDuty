@@ -27,7 +27,7 @@ public class TodoOverlay : FeatureBase {
     public TodoOverlayConfig ModuleTodoOverlayConfig = null!;
     public override NodeBase DisplayNode => new TodoOverlayConfigNode(this);
 
-    private Dictionary<TodoPanelConfig, TodoPanelNode>? panelNodes;
+    private Dictionary<TodoPanelConfig, SimpleTodoPanelNode>? panelNodes;
 
     protected override async Task OnFeatureLoad() {
         ModuleTodoOverlayConfig = await Config.LoadCharacterConfig<TodoOverlayConfig>($"{ModuleInfo.FileName}.config.json");
@@ -94,7 +94,7 @@ public class TodoOverlay : FeatureBase {
                     ModuleTodoOverlayConfig.MarkDirty();
                 }
 
-                var newPanelNode = new TodoPanelNode {
+                var newPanelNode = new SimpleTodoPanelNode {
                     Position = option.Position.Value,
                     Size = new Vector2(200.0f, 200.0f),
                     Config = option,
